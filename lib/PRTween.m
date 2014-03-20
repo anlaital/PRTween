@@ -437,8 +437,7 @@ static NSArray *animationSelectorsForUIView = nil;
     if (useBuiltInAnimationsWhenPossible && !operation.override) {
     
         if (animationSelectorsForCoreAnimation == nil) {
-            animationSelectorsForCoreAnimation = [[NSArray alloc] initWithObjects:
-                                      @"setBounds:",            // CGRect
+            animationSelectorsForCoreAnimation = @[@"setBounds:",            // CGRect
                                       @"setPosition:",          // CGPoint
                                       @"setZPosition:",         // CGFloat
                                       @"setAnchorPoint:",       // CGPoint
@@ -446,7 +445,7 @@ static NSArray *animationSelectorsForUIView = nil;
                                       //@"setTransform:",         // CATransform3D
                                       //@"setSublayerTransform:", // CATransform3D
                                       @"setFrame:",             // CGRect
-                                      @"setContentsRect"        // CGRect
+                                      @"setContentsRect",        // CGRect
                                       @"setContentsScale:",     // CGFloat
                                       @"setContentsCenter:",    // CGPoint
                                       //@"setBackgroundColor:",   // CGColorRef
@@ -456,21 +455,17 @@ static NSArray *animationSelectorsForUIView = nil;
                                       //@"setShadowColor:",       // CGColorRef
                                       @"setShadowOpacity:",     // CGFloat
                                       @"setShadowOffset:",      // CGSize
-                                      @"setShadowRadius:",      // CGFloat
-                                      //@"setShadowPath:",
-                                      nil];
+                                      @"setShadowRadius:"];
         }
         
         if (animationSelectorsForUIView == nil) {
-            animationSelectorsForUIView = [[NSArray alloc] initWithObjects:
-                                        @"setFrame:",           // CGRect
+            animationSelectorsForUIView = @[@"setFrame:",           // CGRect
                                         @"setBounds:",          // CGRect
                                         @"setCenter:",          // CGPoint
                                         @"setTransform:",       // CGAffineTransform
                                         @"setAlpha:",           // CGFloat
                                         //@"setBackgroundColor:", // UIColor
-                                        @"setContentStretch:",  // CGRect
-                                        nil];
+                                        @"setContentStretch:"];
         }
         
         if (operation.boundSetter && operation.boundObject && !(operation.timingFunction == &PRTweenTimingFunctionCADefault ||
@@ -501,8 +496,8 @@ static NSArray *animationSelectorsForUIView = nil;
                     animation.duration = operation.period.duration;
                     
                     if (![operation.period isKindOfClass:[PRTweenLerpPeriod class]] && ![operation.period conformsToProtocol:@protocol(PRTweenLerpPeriod)]) {
-                        animation.fromValue = [NSNumber numberWithFloat:operation.period.startValue];
-                        animation.toValue = [NSNumber numberWithFloat:operation.period.endValue];
+                        animation.fromValue = @(operation.period.startValue);
+                        animation.toValue = @(operation.period.endValue);
                     } else {
                         PRTweenLerpPeriod *period = (PRTweenLerpPeriod*)operation.period;
                         animation.fromValue = period.startLerp;
@@ -541,8 +536,8 @@ static NSArray *animationSelectorsForUIView = nil;
                     NSValue *toValue = nil;
                     
                     if (![operation.period isKindOfClass:[PRTweenLerpPeriod class]] && ![operation.period conformsToProtocol:@protocol(PRTweenLerpPeriod)]) {
-                        fromValue = [NSNumber numberWithFloat:operation.period.startValue];
-                        toValue = [NSNumber numberWithFloat:operation.period.endValue];
+                        fromValue = @(operation.period.startValue);
+                        toValue = @(operation.period.endValue);
                     } else {
                         PRTweenLerpPeriod *period = (PRTweenLerpPeriod*)operation.period;
                         fromValue = period.startLerp;
